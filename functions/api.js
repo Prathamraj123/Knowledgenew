@@ -11,13 +11,17 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   const allowedOrigins = [
     'http://localhost:3000',
-    'http://localhost:5000', 
-    'https://knowledge-base-app.netlify.app'
+    'http://localhost:5000'
   ];
   
   const origin = req.headers.origin;
   
-  if (allowedOrigins.includes(origin)) {
+  // Allow any Netlify domain
+  if (origin && (
+      allowedOrigins.includes(origin) || 
+      origin.endsWith('.netlify.app') || 
+      origin.endsWith('.netlify.com')
+    )) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
   
@@ -93,7 +97,7 @@ const requireAuth = (req, res, next) => {
 };
 
 // API routes
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   const { employeeId, password } = req.body;
   
   if (!employeeId || !password) {
@@ -116,7 +120,7 @@ app.post('/login', (req, res) => {
   });
 });
 
-app.post('/logout', (req, res) => {
+app.post('/api/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ message: 'Failed to logout' });
@@ -125,7 +129,7 @@ app.post('/logout', (req, res) => {
   });
 });
 
-app.get('/auth-check', (req, res) => {
+app.get('/api/auth-check', (req, res) => {
   if (req.session && req.session.user) {
     return res.status(200).json({
       isAuthenticated: true,
@@ -135,7 +139,7 @@ app.get('/auth-check', (req, res) => {
   return res.status(200).json({ isAuthenticated: false });
 });
 
-app.get('/queries', requireAuth, (req, res) => {
+app.get('/api/queries', requireAuth, (req, res) => {
   const { search, topic, employee, date } = req.query;
   
   let filteredQueries = [...queries];
@@ -196,7 +200,7 @@ app.get('/queries', requireAuth, (req, res) => {
   return res.status(200).json(filteredQueries);
 });
 
-app.post('/queries', requireAuth, (req, res) => {
+app.post('/api/queries', requireAuth, (req, res) => {
   const { title, details, answer, topic } = req.body;
   
   if (!title || !details || !answer || !topic) {
@@ -218,7 +222,7 @@ app.post('/queries', requireAuth, (req, res) => {
   return res.status(201).json(newQuery);
 });
 
-app.get('/employees', requireAuth, (req, res) => {
+app.get('/api/employees', requireAuth, (req, res) => {
   const employeeIds = [...new Set(queries.map(query => query.employeeId))];
   return res.status(200).json(employeeIds);
 });
