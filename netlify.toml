@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  publish = "dist/public"
+
+[functions]
+  directory = "functions"
+
+# Redirect API requests to the api.js function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# Handle all other routes for SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

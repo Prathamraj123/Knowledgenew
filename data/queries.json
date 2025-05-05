@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": "How to configure the project deployment settings?",
+    "details": "I'm trying to set up the deployment pipeline but can't find the right settings in the project configuration.",
+    "answer": "Go to Project Settings > Deployment > Configuration. There you'll find all the necessary settings. Make sure to set the environment variables and deployment targets correctly.",
+    "topic": "technical",
+    "employeeId": "E2301",
+    "date": "2025-04-04T14:29:47.036Z"
+  },
+  {
+    "id": 2,
+    "title": "What's the process for requesting time off?",
+    "details": "I need to take some vacation days next month but I'm not sure about the correct procedure.",
+    "answer": "Submit your request through the HR portal at least 2 weeks in advance. Navigate to My Profile > Time Off > Request Time Off. Your manager will receive an automatic notification to approve your request.",
+    "topic": "hr",
+    "employeeId": "E1856",
+    "date": "2025-05-04T14:29:47.036Z"
+  },
+  {
+    "title": " 500 internal server error ",
+    "details": "This arises due to issue in JSP file",
+    "answer": "Clear the error from jsp file as there is issue in JSP file",
+    "topic": "technical",
+    "employeeId": "E2301",
+    "id": 3,
+    "date": "2025-05-04T14:57:51.860Z"
+  }
+]
